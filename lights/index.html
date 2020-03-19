@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                background-color: black;
+                text-align: center;
+            }
+
+            .dot-off {
+                height: 25px;
+                width: 25px;
+                background-color: #bbb;
+                border-radius: 50%;
+                display: inline-block;
+            }
+
+            .dot-on {
+                background-color: yellow;
+                height: 25px;
+                width: 25px;
+                border-radius: 50%;
+                display: inline-block;
+            }
+
+            button {
+                padding: 5px;
+                min-width: 30px;
+            }
+        </style>
+        <script>
+            function toggle(ids) {
+                ids.forEach(id => {
+                    const elt = document.getElementById(id);
+                    if (elt.className === 'dot-off')
+                        elt.className = 'dot-on';
+                    else
+                        elt.className = 'dot-off';
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <span id="1" class="dot-off"></span>
+        <span id="2" class="dot-off"></span>
+        <span id="3" class="dot-off"></span>
+
+        <hr>
+
+        <button onclick="toggle([1])">1</button>
+        <button onclick="toggle([2])">2</button>
+        <button onclick="toggle([3])">3</button>
+    </body>
+</html>

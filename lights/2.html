@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .instructions {
+                color: white;
+                font-size: 36px;
+                font-family: sans-serif;
+            }
+
+            body {
+                background-color: black;
+                text-align: center;
+            }
+
+            .dot-off {
+                height: 100px;
+                width: 100px;
+                background-color: #bbb;
+                border-radius: 50%;
+                display: inline-block;
+                margin: 10px;
+            }
+
+            .dot-on {
+                background-color: yellow;
+                height: 100px;
+                width: 100px;
+                border-radius: 50%;
+                display: inline-block;
+                margin: 10px;
+            }
+
+            button {
+                font-size: 36px;
+                margin: 10px;
+                min-width: 100px;
+                padding: 10px;
+            }
+        </style>
+        <script>
+            const num = 7;
+            const data = [];
+
+            const lights = [
+
+                (data) => data[0],
+                (data) => data[1],
+                (data) => data[2],
+                (data) => data[3],
+
+                (data) => (data[0] || data[1]) && !(data[0] && data[1]), // 4
+                (data) => data[2] && data[3], // 5
+
+                (data) => data[4] && data[5]
+            ];
+            function toggle(ids) {
+                ids.forEach(id => {
+                    if (data[id])
+                        data[id] = false;
+                    else
+                        data[id] = true;
+                });
+                render();
+            }
+
+            function render() {
+                for (let i = 0; i < num; i++) {
+                    const elt = document.getElementById(i);
+                    if (lights[i](data)) {
+                        data[i] = true;
+                        elt.className = 'dot-on';
+                    } else {
+                        data[i] = false;
+                        elt.className = 'dot-off';
+                    }
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', render);
+        </script>
+    </head>
+    <body>
+        <div class="instructions">
+            Turn on the bottom light.
+        </div>
+        <button onclick="toggle([0])">1</button>
+        <button onclick="toggle([1])">2</button>
+        <button onclick="toggle([2])">3</button>
+        <button onclick="toggle([3])">4</button>
+        <hr>
+        <div>
+            <span id="0" class="dot-off"></span>
+            <span id="1" class="dot-off"></span>
+            <span id="2" class="dot-off"></span>
+            <span id="3" class="dot-off"></span>
+        </div>
+        <div>
+            <span id="4" class="dot-off"></span>
+            <span id="5" class="dot-off"></span>
+        </div>
+        <div>
+            <span id="6" class="dot-off"></span>
+        </div>
+    </body>
+</html>
